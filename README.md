@@ -1,0 +1,2 @@
+# Shell-pratice-
+Pratice prepos 
