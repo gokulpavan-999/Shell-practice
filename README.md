@@ -1,2 +1,2 @@
 # Shell-pratice-
-Pratice prepos 
+echo "Hello pavan" 
