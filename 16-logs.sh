@@ -11,7 +11,7 @@ SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" #/var/log/Shell-script/16.logs.log
 
 mkdir -p $LOGS_FOLDER
-echo "scrip started executed at :$(date)"
+echo "scrip started executed at: $(date)" | tee -a $LOG_FILE
 
 if [ $USERID -ne 0 ]; then
    echo "ERROR:: Please run this script with root privilege"
@@ -26,7 +26,7 @@ VALIDATE(){
     fi
 }
 
-dnf list installed mysql
+dnf list installed mysql &>>LOG_FILE | tee -a $LOG_FILE
     if [ $? -ne 0 ]; then
        dnf install mysql -y
        VALIDATE $? "MySQL"
@@ -34,7 +34,7 @@ dnf list installed mysql
       echo -e "MySQL already exist ... $Y SKIPPING $N"
     fi
 
-dnf list installed nginx
+dnf list installed nginx &>>LOG_FILE | tee -a $LOG_FILE
     if [ $? -ne 0 ]; then
        dnf install nginx -y
        VALIDATE $? "Nginx"
@@ -42,7 +42,7 @@ dnf list installed nginx
       echo -e "Nginx already exist ... $Y SKIPPING $N"
     fi
 
-dnf list installed python3
+dnf list installed python3 &>>LOG_FILE | tee -a $LOG_FILE
     if [ $? -ne 0 ]; then
        dnf install python3 -y
        VALIDATE $? " Python3"
