@@ -20,32 +20,35 @@ fi
 
 VALIDATE(){
     if [ $1 -ne 0 ]; then
-       echo -e "ERROR:: Installing $2 ... $R FAILURE $N"
+       echo -e "ERROR:: Installing $2 ... $R FAILURE $N" | tee -a $LOG_FILE
+
     else
-       echo -e "Installing $2 ... $G SUCCESS $N"
+       echo -e "Installing $2 ... $G SUCCESS $N" | tee -a $LOG_FILE
+
     fi
 }
 
-dnf list installed mysql &>>LOG_FILE | tee -a $LOG_FILE
+dnf list installed mysql &>>LOG_FILE
     if [ $? -ne 0 ]; then
-       dnf install mysql -y
+       dnf install mysql -y &>>LOG_FILE
        VALIDATE $? "MySQL"
     else
-      echo -e "MySQL already exist ... $Y SKIPPING $N"
+      echo -e "MySQL already exist ... $Y SKIPPING $N" | tee -a $LOG_FILE
+
     fi
 
-dnf list installed nginx &>>LOG_FILE | tee -a $LOG_FILE
+dnf list installed nginx &>>LOG_FILE
     if [ $? -ne 0 ]; then
-       dnf install nginx -y
+       dnf install nginx -y &>>LOG_FILE
        VALIDATE $? "Nginx"
     else
-      echo -e "Nginx already exist ... $Y SKIPPING $N"
+      echo -e "Nginx already exist ... $Y SKIPPING $N" | tee -a $LOG_FILE
     fi
 
-dnf list installed python3 &>>LOG_FILE | tee -a $LOG_FILE
+dnf list installed python3 &>>LOG_FILE
     if [ $? -ne 0 ]; then
-       dnf install python3 -y
+       dnf install python3 -y &>>LOG_FILE
        VALIDATE $? " Python3"
     else
-      echo -e "Python3 already exists ... $Y SKIPPING $N"
+      echo -e "Python3 already exists ... $Y SKIPPING $N" | tee -a $LOG_FILE
     fi
