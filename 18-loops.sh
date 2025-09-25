@@ -10,7 +10,8 @@ LOGS_FLODER="/var/log/shell-script"
 SCRIPT_NAME=$( echo $0 | cut -d "." -fl )
 LOG_FILE="$LOGS_FLODER/$SCRIPT_NAME.log"
 
-mkdir - p $LOGS_FLODER
+mkdir -p $LOGS_FLODER
+echo "Script started executed at: $(date)" | tee -a $LOGS_FOLDER
 
 if [ $USERID -ne 0 ]; then
    echo "ERROR:: Please run this script with root privilege"
