@@ -6,12 +6,12 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-LOGS_FLODER="/var/log/shell-script"
-SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
-LOG_FILE="$LOGS_FLODER/$SCRIPT_NAME.log"
+LOGS_FOLDER="/var/log/shell-script"
+SCRIPT_NAME=$(basename "$0" .sh)
+LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
-mkdir -p $LOGS_FLODER
-echo "Script started executed at: $(date)" | tee -a $LOGS_FOLDER
+mkdir -p $LOGS_FOLDER
+echo "Script started executed at: $(date)" | tee -a $LOG_FILE
 
 if [ $USERID -ne 0 ]; then
    echo "ERROR:: Please run this script with root privilege"
@@ -19,26 +19,22 @@ if [ $USERID -ne 0 ]; then
 fi
 
 VALIDATE(){
-    if [ $1 -ne 0 ]; then 
+    if [ $1 -ne 0 ]; then
        echo -e "Installing $2 ... $R FAILURE $N" | tee -a $LOG_FILE
        exit 1
     else
        echo -e "Installing $2 ... $G SUCCESS $N" | tee -a $LOG_FILE
-    fi    
+    fi
 }
 
-# $0
-
-for package in $@
+for package in "$@"
 do
-   #Check Package is already installed or not
-   dnf list installed $package &>>$LOG_FILE
+   dnf list installed "$package" &>>$LOG_FILE
 
-   #if exit status is 0, already installed. -ne 0 need to install it
    if [ $? -ne 0 ]; then
-      dnf install $package -y &>>$LOG_FILE
+      dnf install "$package" -y &>>$LOG_FILE
       VALIDATE $? "$package"
    else
-     echo -e "$package already installed ... $Y SKIPPING $N"
-  fi    
+     echo -e "$package already installed ... $Y SKIPPING $N" | tee -a $LOG_FILE
+  fi
 done
