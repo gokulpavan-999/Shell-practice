@@ -8,7 +8,9 @@ N="\e[0m"
 
 LOGS_FOLDER="/var/log/Shell-script"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
-LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+#LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+LOG_FILE="$LOGS_FOLDER/backup.log" #modified to run the script as command
+
 SOURCE_DIR=$1
 DEST_DIR=$2
 DAYS=${3:-14} #Default to 14 days if not passed
