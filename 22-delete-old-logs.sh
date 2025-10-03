@@ -26,4 +26,4 @@ while IFS= read -r filepath
 do
   echo "Deleting the file: $filepath"
   
-done <<<$FILE_TO_DELRTE
+done <<<"$FILE_TO_DELRTE"
