@@ -6,14 +6,14 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-LOGS_FOLDER="/var/log/Shell-roboshop"
+LOGS_FOLDER="/var/log/Shell-script"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS_FOLDER
 echo "Script Staring at: $(date)"
 
-SOURCE_DIR="/home/ec2-user/app-logs"
+SOURCE_DIR=/home/ec2-user/app-logs
 
 if [ ! -d $SOURCE_DIR ]; then
      echo -e "ERROR:: $SOURCE_DIR does not exist"
