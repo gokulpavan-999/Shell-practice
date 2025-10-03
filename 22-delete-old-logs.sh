@@ -10,7 +10,7 @@ LOGS_FOLDER="/var/log/Shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
-mkdir -p $LOGS_FOLDE
+mkdir -p $LOGS_FOLDER
 echo "Script Staring at: $(date)"
 
 SOURCE_DIR="/home/ec2-user/app-logs"
