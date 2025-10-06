@@ -10,7 +10,7 @@ do
 
   USAGE=$(echo $Line | awk '{print $6}' | cut -d "%" -f1)
   PARTITION=$(echo $Line | awk '{print $7}')
-  MESSAGE+="High Disk usage on $PARTITION:$USAGE % /n"
+  MESSAGE+="High Disk usage on $PARTITION:$USAGE % \n"
   
 done <<< "$DISK_USAGE"
 
